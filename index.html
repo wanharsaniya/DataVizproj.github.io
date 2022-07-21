@@ -20,7 +20,7 @@
 
 		<script type="text/javascript">
 			var svg2 = dimple.newSvg('#chartContainer2', 600,400);
-			d3.csv('titanic1.csv', function(data) {
+			d3.csv('public/titanic1.csv', function(data) {
 			var ChartInstance = new dimple.chart(svg2,data);
 			ChartInstance.setBounds(60,30,510,305);
 			var x = ChartInstance.addCategoryAxis('x', 'Passenger Class');
@@ -44,7 +44,7 @@
         <h4><i>*The share of class 3 passengers was highest </i><h4>
 		<script type="text/javascript">
 			var svg12 = dimple.newSvg("#PiechartContainer12", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
+			d3.csv("public/titanic_train.csv", function (data) {
 			var ChartInstance = new dimple.chart(svg12, data);
 			ChartInstance.setBounds(20, 20, 460, 360)
 			ChartInstance.addMeasureAxis("p", "Passenger Class");
@@ -60,7 +60,7 @@
 		<h4><i>*Females were given priority during the rescue</i><h4>
 		<script type="text/javascript">
 			var svg1 = dimple.newSvg("#PiechartContainer1", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
+			d3.csv("public/titanic_train.csv", function (data) {
 			var ChartInstance = new dimple.chart(svg1, data);
 			ChartInstance.setBounds(20, 20, 460, 360)
 			ChartInstance.addMeasureAxis("p", "Survived");
