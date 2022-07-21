@@ -76,7 +76,7 @@
 	<h4><i>*Senior passengers were given priority to Life-Boats as seen in the movie</i><h4>
  	<script type="text/javascript">
  	var svg4 = dimple.newSvg('#chartContainer4', 600,400);
- 		d3.csv('titanic1.csv', function(data) {
+ 		d3.csv('public/titanic1.csv', function(data) {
    		var ChartInstance = new dimple.chart(svg4,data);
   		ChartInstance.setBounds(60,30,510,305);
   		var x = ChartInstance.addCategoryAxis('x', 'Age');
@@ -101,7 +101,7 @@
 	<h4><i>*Most 1st Class passengers aboarded the ship at Southampton UK</i><h4>
 	<script type="text/javascript">
 	var svg8 = dimple.newSvg('#chartContainer8', 600,400);
-	d3.csv('titanic1.csv', function(data) {
+	d3.csv('public/titanic1.csv', function(data) {
 	var ChartInstance = new dimple.chart(svg8,data);
 	ChartInstance.setBounds(60,30,510,305);
 	var x = ChartInstance.addCategoryAxis('x', 'Embarked');
@@ -127,7 +127,7 @@
 		
 		<script type="text/javascript">
 			var svg9 = dimple.newSvg("#PiechartContainer2", 590, 400);
-			d3.csv("titanic_train.csv", function (olddata) {
+			d3.csv("public/titanic_train.csv", function (olddata) {
 			data =modify_data(olddata);			 
 			var ChartInstance = new dimple.chart(svg9, data);
 			ChartInstance.setBounds(20, 20, 460, 360)
@@ -167,7 +167,7 @@
 		<h4><i>*shows that first class passengers were given priority to Life-Boats</i><h4>
 		<script type="text/javascript">
 			var svg10 = dimple.newSvg("#chartContainer10", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
+			d3.csv("public/titanic_train.csv", function (data) {
 			var myChart = new dimple.chart(svg10, data);
 			  myChart.setBounds(60, 45, 510, 315)
 			  myChart.addCategoryAxis("x", "Passenger Class");
