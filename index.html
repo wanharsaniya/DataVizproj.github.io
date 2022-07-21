@@ -1,181 +1,251 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-  	<script src="/d3.v3.min.js"></script>
-  	<script src="/dimple.v2.1.2.min.js"></script>
-    <style>
-    body {
-      margin: 50px;
+  <meta charset="utf-8">
+  <script src='https://d3js.org/d3.v5.min.js'></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script src="lib/intro.min.js"></script>
+  <script src="lib/common.js"></script>
+  <link rel="stylesheet" href="css/introjs.min.css">
+  <link rel="stylesheet" href="index.css">
+  <style>
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 2px;
+      font: 10px sans-serif;
+      background: lightskyblue;
+      color: black;
+      border: 0px;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
     }
-    </style>
- </head>
- <body>
+
+    .left {
+      width: 30%;
+    }
+
+    .column {
+      float: left;
+      width: 20%;
+      padding: 0 10px;
+    }
 
 
-<div id='chartContainer2'>
-		<h2>Survivors by Passenger Class (Bar)</h2>
+    a {
+      cursor: pointer;
+    }
 
-		<script type="text/javascript">
-			var svg2 = dimple.newSvg('#chartContainer2', 600,400);
-			d3.csv('titanic1.csv', function(data) {
-			var ChartInstance = new dimple.chart(svg2,data);
-			ChartInstance.setBounds(60,30,510,305);
-			var x = ChartInstance.addCategoryAxis('x', 'Passenger Class');
-			// x.addOrderRule('Type');
-			var y = ChartInstance.addPctAxis('y', 'Count');
-			//y.showbycent = true;
-			//var y = ChartInstance.addMeasureAxis('y', 'Count');
-			var s = ChartInstance.addSeries("Status", dimple.plot.bar);
-			ChartInstance.addLegend(60, 10, 510, 20, "right");
+    p {
+      text-align: left;
+    }
+
+    h1 {
+      background-color: #F08080;
+      border: 1px solid white;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    #container div {
+      border: 1px solid white;
+      margin: auto;
+      width: 60%;
+      height: 100%;
+      fill: green;
+      background-color: none;
+    }
 
 
+    .card {
+      box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+      padding: 16px;
+      background-color: #f1f1f1;
+    }
 
-			ChartInstance.draw(1000);	
+    .button {
+      position: relative;
+      background: #f08080;
+      padding-right: 26px;
+      border-radius: 5px;
+      border: none;
+      color: white;
+      margin: 0;
+      padding: 0 2px;
+      width: 40px;
+      cursor: pointer;
+      height: 30px;
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+      margin-left: 0px;
+    }
 
-			 });
-		</script>
-		</div>
-	
-	<div id='PiechartContainer12'>
-		<h2>Passenger Share By Class 1, Class 2, Class 3 </h2>
-        <h4><i>*The share of class 3 passengers was highest </i><h4>
-		<script type="text/javascript">
-			var svg12 = dimple.newSvg("#PiechartContainer12", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
-			var ChartInstance = new dimple.chart(svg12, data);
-			ChartInstance.setBounds(20, 20, 460, 360)
-			ChartInstance.addMeasureAxis("p", "Passenger Class");
-			ChartInstance.addSeries("Passenger Class", dimple.plot.pie);			
-			ChartInstance.addLegend(500, 20, 90, 300, "left");
-			ChartInstance.draw();
-			});
-		</script>
-	</div> 
-	
-	<div id='PiechartContainer1'>
-		<h2>Survivors by Gender (Pie chart)</h2>
-		<h4><i>*Females were given priority during the rescue</i><h4>
-		<script type="text/javascript">
-			var svg1 = dimple.newSvg("#PiechartContainer1", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
-			var ChartInstance = new dimple.chart(svg1, data);
-			ChartInstance.setBounds(20, 20, 460, 360)
-			ChartInstance.addMeasureAxis("p", "Survived");
-			ChartInstance.addSeries("Sex", dimple.plot.pie);
-			ChartInstance.addLegend(500, 20, 90, 300, "left");
-			ChartInstance.draw();
-			});
-		</script>
-	</div>  
-  	
-  	<div id='chartContainer4'>
-	<h2>Survivors by Age </h2>
-	<h4><i>*Senior passengers were given priority to Life-Boats as seen in the movie</i><h4>
- 	<script type="text/javascript">
- 	var svg4 = dimple.newSvg('#chartContainer4', 600,400);
- 		d3.csv('titanic1.csv', function(data) {
-   		var ChartInstance = new dimple.chart(svg4,data);
-  		ChartInstance.setBounds(60,30,510,305);
-  		var x = ChartInstance.addCategoryAxis('x', 'Age');
-       // x.addOrderRule('Type');
-  		var y = ChartInstance.addPctAxis('y', 'Count');
-  		//y.showbycent = true;
-  		//var y = ChartInstance.addMeasureAxis('y', 'Count');
-        var s = ChartInstance.addSeries("Status", dimple.plot.bar);
-        ChartInstance.addLegend(60, 10, 510, 20, "right");
+    .vertical-radio-buttons div {
+      display: block;
+      padding: 5px 5px 5px 5px;
+      clear: both;
+    }
 
+    .vertical-radio-buttons span {
+      display: block;
+      padding-left: 20px;
+      cursor: inherit;
+    }
 
+    .vertical-radio-buttons label {
+      font-size: rem-calc(16);
+    }
 
- 		
-		ChartInstance.draw(1000);	
+    .vertical-radio-buttons input {
+      float: left;
+      width: 20px;
+      margin-left: 20px;
+      margin-top: 6px;
+      padding: 0;
+      -webkit-appearance: radio;
+    }
+  </style>
+</head>
 
-		 });
+<div id="header" style="height: 100px;" data-intro="The Message : Child Marriage impacts world population and economy! "
+  data-step="1" ata-position="auto">
+  <h1>Child Marriage Impact on Population and Economy</h1>
+</div>
+
+<div class="column left">
+
+  <div style="height: 20px;">
+    <br>
+  </div>
+  <div id="scene-btn" class="card" data-intro="Use these buttons to navigate through different scenes " data-step="2"
+    data-position="right">
+    <button class="button slide-button" id="prev-button">Prev</button>
+    <button class="button slide-button" id="home-button" style="display: none;"
+      onclick="changeRoute('scene-1.html')">Home</button>
+    <button class="button slide-button" id="scene-btn-1" onclick="changeRoute('scene-1.html')">1</button>
+    <button class="button slide-button" id="scene-btn-2" onclick="changeRoute('scene-2.html')">2</button>
+    <button class="button slide-button" id="scene-btn-3" onclick="changeRoute('scene-3.html')">3</button>
+    <button class="button slide-button" id="scene-btn-4" onclick="changeRoute('scene-4.html')">4</button>
+    <button class="button slide-button" id="next-button">Next</button>
+  </div>
+
+  <div style="height: 20px;">
+    <br>
+  </div>
+  <div id="parameter" class="vertical-radio-buttons" data-intro="Explore charts by changing these parameters"
+    data-step="3" data-position="right">
+
+    <div id="scene-parameter" class="card">
+      <!--
+        will be generated dynamically per scene
+      -->
+    </div>
+
+  </div>
+
+  <div style="height: 20px;">
+    <br>
+  </div>
+  <div id="scene-message" class="card" data-intro="Intersting details you would like to know" data-step="4"
+    data-position="right">
+    <!--
+        will be generated dynamically per scene
+      -->
+  </div>
+
+  <!--
+  <div id="scene-btn" class="card" data-intro="Use these buttons to navigate through different scenes" data-step="2"
+    data-position="bottom" style="padding:16px 0 16px 0">
+    <button id="prev-button" disabled="">Prev</button><button onclick="updateScene(0)" class="numbtns" id="scenebtn-0"
+      disabled="">1</button><button onclick="updateScene(1)" class="numbtns" id="scenebtn-1">2</button><button
+      onclick="updateScene(2)" class="numbtns" id="scenebtn-2">3</button><button onclick="updateScene(3)"
+      class="numbtns" id="scenebtn-3">4</button><button onclick="updateScene(4)" class="numbtns"
+      id="scenebtn-4">5</button><button onclick="updateScene(5)" class="numbtns" id="scenebtn-5">6</button><button
+      id="next-button" data-intro="Lets Go!" data-step="8" data-position="top">Next</button>
+  </div>
+-->
+  <div style="height: 20px;">
+    <br>
+  </div>
+</div>
+
+<body>
+  <div id="container">
+    <div id="body-container">
+      <div id="content" data-intro="Mouse Over on Charts to explore data points on charts" data-step="5"
+        data-position="auto"></div>
+    </div>
+  </div>
+</body>
+<script>
+  introJs().start();
+  function changeRoute(path) {
+    $('#content').load('pages/' + path, function () { init() })
+  }
+  changeRoute("scene-1.html");
 </script>
-  	</div>
- 
-	<div id='chartContainer8'>
-	<h2>Survivors by Embarked </h2>
-	<h4><i>*Most 1st Class passengers aboarded the ship at Southampton UK</i><h4>
-	<script type="text/javascript">
-	var svg8 = dimple.newSvg('#chartContainer8', 600,400);
-	d3.csv('titanic1.csv', function(data) {
-	var ChartInstance = new dimple.chart(svg8,data);
-	ChartInstance.setBounds(60,30,510,305);
-	var x = ChartInstance.addCategoryAxis('x', 'Embarked');
-	// x.addOrderRule('Type');
-	var y = ChartInstance.addPctAxis('y', 'Count');
-	//y.showbycent = true;
-	//var y = ChartInstance.addMeasureAxis('y', 'Count');
-	var s = ChartInstance.addSeries("Status", dimple.plot.bar);
-	ChartInstance.addLegend(60, 10, 510, 20, "right");
 
-
-
-		ChartInstance.draw(1000); 
-
-
-	});
-	</script>
-	</div>	
-	
-		<div id='PiechartContainer2'>
-		<h2>Survivors by Embarked (Pie chart)</h2>
-		<h4><i>*Most 3rd Class passengers aboard the ship at Cherbourg , who were mostly from southern france & North Africa </i><h4>
-		
-		<script type="text/javascript">
-			var svg9 = dimple.newSvg("#PiechartContainer2", 590, 400);
-			d3.csv("titanic_train.csv", function (olddata) {
-			data =modify_data(olddata);			 
-			var ChartInstance = new dimple.chart(svg9, data);
-			ChartInstance.setBounds(20, 20, 460, 360)
-			ChartInstance.addMeasureAxis("p", "Survived");
-			ChartInstance.addSeries("Embarked", dimple.plot.pie);
-			ChartInstance.addLegend(500, 20, 90, 300, "left");
-			ChartInstance.draw();
-			});
-		</script>
-		
-		<script type="text/javascript">
-		    var ctr = 0;
-			function modify_data(data){
-				data.forEach(myFunction);	
-				return data;				
-			};
-			function myFunction(item) {
-			    if((item["Embarked"])=='S'){
-					(item["Embarked"])='Southampton';
-				} 
-				else if((item["Embarked"])=='C'){
-					(item["Embarked"])='Cherbourg';
-							} 	
-				else if((item["Embarked"])=='Q'){
-					(item["Embarked"])='Queenstown';
-				} 		
-				else {
-					(item["Embarked"])='NA';
-				};				
-			}
-		</script>
-	</div>
-
-		<div id="chartContainer10">
-		<h2>Passenger survival rate By </h2>
-		 
-		<h4><i>*shows that first class passengers were given priority to Life-Boats</i><h4>
-		<script type="text/javascript">
-			var svg10 = dimple.newSvg("#chartContainer10", 590, 400);
-			d3.csv("titanic_train.csv", function (data) {
-			var myChart = new dimple.chart(svg10, data);
-			  myChart.setBounds(60, 45, 510, 315)
-			  myChart.addCategoryAxis("x", "Passenger Class");
-			  myChart.addMeasureAxis("y", "Fare");
-			  myChart.addSeries("Survived", dimple.plot.bar);
-			  myChart.addLegend(200, 10, 380, 20, "right");
-			  myChart.draw();
-			});
-		  </script>
-		</div>
-
- </body>
- </html>
+</html>
